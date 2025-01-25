@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SUPER OFFLINE LABOR TIME MACHINE</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(45deg, #000000, #1a1a1a);
+            color: white;
+            font-family: 'Arial', sans-serif;
+            min-height: 100vh;
+            animation: bgAnim 20s infinite linear;
+            overflow: hidden;
+            position: relative;
+        }
+
+        @keyframes bgAnim {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .title-container {
+            position: relative;
+            padding: 20px;
+            margin: 40px 0;
+            border: 4px solid;
+            border-image: linear-gradient(45deg, #ff0000, #fffb00, #00ff00, #00ffff, #0000ff, #ff00ff) 1;
+            animation: borderRainbow 5s linear infinite;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin: 0;
+            background: linear-gradient(45deg, #ff0000, #fffb00, #00ff00, #00ffff, #0000ff, #ff00ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: rainbow 2s linear infinite;
+        }
+
+        @keyframes rainbow {
+            100% { filter: hue-rotate(360deg); }
+        }
+
+        @keyframes borderRainbow {
+            100% { filter: hue-rotate(360deg); }
+        }
+
+        .super-circle {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(255,0,0,0.2) 0%, rgba(0,0,0,0) 60%);
+            border-radius: 50%;
+            animation: circleAnim 20s linear infinite;
+            z-index: 1;
+        }
+
+        @keyframes circleAnim {
+            0% { transform: translate(-50%, -50%) scale(1) rotate(0deg); }
+            50% { transform: translate(-50%, -50%) scale(1.5) rotate(180deg); }
+            100% { transform: translate(-50%, -50%) scale(1) rotate(360deg); }
+        }
+
+        .labor-input {
+            font-size: 4em;
+            margin: 20px 0;
+            padding: 10px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            width: 300px;
+            color: #00ff00;
+            border: 3px solid #00ff00;
+        }
+
+        .button-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            max-width: 400px;
+            margin: 20px auto;
+        }
+
+        button {
+            padding: 15px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background: linear-gradient(45deg, #00ff00, #009900);
+            color: white;
+            transition: transform 0.2s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        button:hover {
+            transform: scale(1.1);
+        }
+
+        .result {
+            font-size: 2em;
+            margin: 30px 0;
+            color: #00ff00;
+            text-shadow: 0 0 10px #00ff00;
+        }
+
+        .secondary-result {
+            font-size: 1.2em;
+            color: #00ffff;
+            margin: 10px 0;
+        }
+
+        .glow {
+            text-shadow: 0 0 20px #00ff00;
+        }
+
+        .progress-bar {
+            width: 80%;
+            height: 30px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            margin: 20px auto;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #ff0000, #fffb00, #00ff00, #00ffff, #0000ff, #ff00ff);
+            background-size: 400% 400%;
+            animation: progressGradient 3s linear infinite;
+            transition: width 0.5s ease-out;
+        }
+
+        @keyframes progressGradient {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+
+        .timer-container {
+            font-size: 2.5em;
+            margin: 20px 0;
+            padding: 15px;
+            border: 3px solid;
+            border-image: linear-gradient(45deg, #ff0000, #fffb00, #00ff00, #00ffff, #0000ff, #ff00ff) 1;
+            border-radius: 10px;
+            animation: borderRainbow 5s linear infinite;
+            background: rgba(0,0,0,0.5);
+        }
+
+        @keyframes timerPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <div class="super-circle" style="top: 20%; left: 10%;"></div>
+    <div class="super-circle" style="top: 80%; left: 90%; animation-delay: -10s;"></div>
+    <div class="super-circle" style="top: 50%; left: 70%; animation-delay: -5s; width: 400px; height: 400px;"></div>
+
+    <div class="container">
+        <div class="title-container">
+            <h1>SUPER OFFLINE LABOR TIME MACHINE</h1>
+        </div>
+        
+        <div class="labor-display">
+            <input type="number" id="labor" class="labor-input" value="0" readonly>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+        <div class="timer-container">
+            ⏳ <span id="timer">05:00</span> ⏳
+        </div>
+
+        <div class="button-grid">
+            <button onclick="adjustLabor(1)">+1</button>
+            <button onclick="adjustLabor(2)">+2</button>
+            <button onclick="adjustLabor(5)">+5</button>
+            <button onclick="adjustLabor(10)">+10</button>
+            <button onclick="adjustLabor(100)">+100</button>
+            <button onclick="adjustLabor(5000)">+5000</button>
+            <button onclick="resetLabor()" style="grid-column: span 3; background: linear-gradient(45deg, #ff0000, #990000);">
+                RESET
+            </button>
+        </div>
+
+        <div id="result" class="result"></div>
+        <div id="timeResult" class="result"></div>
+        <div id="secondaryResults" class="secondary-result"></div>
+    </div>
+
+    <script>
+        let currentLabor = 0;
+        const LABOR_CAP = 5000;
+        const LABOR_PER_MINUTE = 8;
+        let countdownInterval = null;
+        let remainingTime = 300;
+
+        function startTimer() {
+            clearInterval(countdownInterval);
+            remainingTime = 300;
+            updateTimerDisplay();
+            
+            countdownInterval = setInterval(() => {
+                remainingTime--;
+                updateTimerDisplay();
+                
+                if(remainingTime <= 0) {
+                    addAutoLabor();
+                    remainingTime = 300;
+                }
+            }, 1000);
+        }
+
+        function resetTimer() {
+            if(currentLabor < LABOR_CAP) {
+                clearInterval(countdownInterval);
+                startTimer();
+            }
+        }
+
+        function addAutoLabor() {
+            const newLabor = Math.min(currentLabor + 40, LABOR_CAP);
+            if(newLabor !== currentLabor) {
+                currentLabor = newLabor;
+                updateDisplay();
+                if(currentLabor === LABOR_CAP) {
+                    clearInterval(countdownInterval);
+                    document.getElementById('timer').textContent = 'MASSIMO!';
+                }
+            }
+        }
+
+        function updateTimerDisplay() {
+            const minutes = Math.floor(remainingTime / 60).toString().padStart(2, '0');
+            const seconds = (remainingTime % 60).toString().padStart(2, '0');
+            document.getElementById('timer').textContent = `${minutes}:${seconds}`;
+            
+            if(remainingTime <= 10) {
+                document.getElementById('timer').style.animation = 'timerPulse 0.5s infinite';
+            } else {
+                document.getElementById('timer').style.animation = '';
+            }
+        }
+
+        function adjustLabor(value) {
+            const newLabor = Math.min(currentLabor + value, LABOR_CAP);
+            if(newLabor !== currentLabor) {
+                currentLabor = newLabor;
+                updateDisplay();
+                if(currentLabor < LABOR_CAP) {
+                    resetTimer();
+                } else {
+                    clearInterval(countdownInterval);
+                    document.getElementById('timer').textContent = 'MASSIMO!';
+                }
+            }
+        }
+
+        function resetLabor() {
+            currentLabor = 0;
+            updateDisplay();
+            resetTimer();
+        }
+
+        function updateDisplay() {
+            document.getElementById('labor').value = currentLabor;
+            const progress = (currentLabor / LABOR_CAP) * 100;
+            document.getElementById('progressFill').style.width = `${progress}%`;
+            calculateTime();
+        }
+
+        function calculateTime() {
+            const laborNeeded = LABOR_CAP - currentLabor;
+            let minutes = laborNeeded / LABOR_PER_MINUTE;
+            
+            if(laborNeeded <= 0) {
+                document.getElementById('result').innerHTML = "⚠️ LABOR AL MASSIMO! ⚠️";
+                document.getElementById('timeResult').innerHTML = "";
+                document.getElementById('secondaryResults').innerHTML = "";
+                return;
+            }
+
+            const hours = Math.floor(minutes / 60);
+            minutes = Math.floor(minutes % 60);
+
+            const now = new Date();
+            const targetDate = new Date(now.getTime() + (laborNeeded * (60000 / LABOR_PER_MINUTE)));
+            const options = { weekday: 'long', hour: 'numeric', minute: 'numeric', day: 'numeric', month: 'long' };
+
+            const labor1h = Math.min(currentLabor + (60 * LABOR_PER_MINUTE), LABOR_CAP);
+            const labor3h = Math.min(currentLabor + (180 * LABOR_PER_MINUTE), LABOR_CAP);
+
+            document.getElementById('result').innerHTML = `TEMPO NECESSARIO:<br><span class="glow">${hours}h ${minutes}m</span>`;
+            document.getElementById('timeResult').innerHTML = `⏰ RAGGIUNTI IL:<br>${targetDate.toLocaleDateString('it-IT', options)}`;
+            document.getElementById('secondaryResults').innerHTML = 
+                `Labor tra 1 ora: ${labor1h}<br>Labor tra 3 ore: ${labor3h}`;
+        }
+
+        // Inizializzazione
+        startTimer();
+        updateDisplay();
+    </script>
+</body>
+</html>
