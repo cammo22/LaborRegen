@@ -1,6 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="it">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SUPER OFFLINE LABOR TIME MACHINE</title>
     <style>
         body {
@@ -11,8 +13,12 @@
             font-family: 'Arial', sans-serif;
             min-height: 100vh;
             animation: bgAnim 20s infinite linear;
-            overflow: hidden;
+            overflow-x: hidden; /* Impedisce la barra di scorrimento orizzontale */
             position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start; /* Allinea in alto */
         }
 
         @keyframes bgAnim {
@@ -23,7 +29,8 @@
 
         .container {
             max-width: 800px;
-            margin: 0 auto;
+            width: 90%; /* Larghezza relativa per schermi piccoli */
+            margin: 20px auto;
             text-align: center;
             position: relative;
             z-index: 2;
@@ -32,16 +39,17 @@
         .title-container {
             position: relative;
             padding: 20px;
-            margin: 40px 0;
+            margin: 20px 0; /* Ridotto il margine verticale */
             border: 4px solid;
             border-image: linear-gradient(45deg, #ff0000, #fffb00, #00ff00, #00ffff, #0000ff, #ff00ff) 1;
             animation: borderRainbow 5s linear infinite;
             border-radius: 15px;
             overflow: hidden;
+            box-sizing: border-box; /* Assicura che padding non aumenti le dimensioni */
         }
 
         h1 {
-            font-size: 2.5em;
+            font-size: 2em; /* Font size più piccolo per schermi piccoli */
             margin: 0;
             background: linear-gradient(45deg, #ff0000, #fffb00, #00ff00, #00ffff, #0000ff, #ff00ff);
             -webkit-background-clip: text;
@@ -59,8 +67,8 @@
 
         .super-circle {
             position: absolute;
-            width: 600px;
-            height: 600px;
+            width: 300px; /* Dimensioni ridotte per dispositivi piccoli */
+            height: 300px; /* Dimensioni ridotte per dispositivi piccoli */
             background: radial-gradient(circle, rgba(255,0,0,0.2) 0%, rgba(0,0,0,0) 60%);
             border-radius: 50%;
             animation: circleAnim 20s linear infinite;
@@ -68,33 +76,38 @@
         }
 
         @keyframes circleAnim {
-            0% { transform: translate(-50%, -50%) scale(1) rotate(0deg); }
-            50% { transform: translate(-50%, -50%) scale(1.5) rotate(180deg); }
+             0% { transform: translate(-50%, -50%) scale(1) rotate(0deg); }
+            50% { transform: translate(-50%, -50%) scale(1.3) rotate(180deg); }
             100% { transform: translate(-50%, -50%) scale(1) rotate(360deg); }
         }
 
         .labor-input {
-            font-size: 4em;
+            font-size: 2.5em; /* Ridotto per dispositivi mobili */
             margin: 20px 0;
             padding: 10px;
             background: rgba(255,255,255,0.1);
             border-radius: 10px;
-            width: 300px;
+            width: 80%; /* Larghezza relativa per schermi piccoli */
+            max-width: 300px; /* Massimo in larghezza */
             color: #00ff00;
             border: 3px solid #00ff00;
+            box-sizing: border-box; /* Assicura che padding non aumenti le dimensioni */
         }
 
         .button-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)); /* Griglia responsive */
             gap: 10px;
             max-width: 400px;
+            width: 100%; /* Larghezza totale disponibile */
             margin: 20px auto;
+            box-sizing: border-box; /* Assicura che padding non aumenti le dimensioni */
         }
 
+
         button {
-            padding: 15px;
-            font-size: 1.2em;
+            padding: 12px;
+            font-size: 1em; /* Ridotto per dispositivi mobili */
             border: none;
             border-radius: 5px;
             cursor: pointer;
@@ -103,21 +116,22 @@
             transition: transform 0.2s;
             position: relative;
             overflow: hidden;
+            white-space: nowrap; /* Evita che il testo vada a capo */
         }
 
         button:hover {
-            transform: scale(1.1);
+            transform: scale(1.05); /* Leggermente ridotto l'effetto hover */
         }
 
         .result {
-            font-size: 2em;
-            margin: 30px 0;
+            font-size: 1.5em; /* Ridotto per dispositivi mobili */
+            margin: 20px 0;
             color: #00ff00;
             text-shadow: 0 0 10px #00ff00;
         }
 
         .secondary-result {
-            font-size: 1.2em;
+            font-size: 1em; /* Ridotto per dispositivi mobili */
             color: #00ffff;
             margin: 10px 0;
         }
@@ -128,7 +142,7 @@
 
         .progress-bar {
             width: 80%;
-            height: 30px;
+            height: 25px; /* Altezza ridotta per schermi piccoli */
             background: rgba(255,255,255,0.1);
             border-radius: 15px;
             margin: 20px auto;
@@ -151,9 +165,9 @@
         }
 
         .timer-container {
-            font-size: 2.5em;
+            font-size: 1.8em; /* Ridotto per dispositivi mobili */
             margin: 20px 0;
-            padding: 15px;
+            padding: 12px; /* Ridotto per dispositivi mobili */
             border: 3px solid;
             border-image: linear-gradient(45deg, #ff0000, #fffb00, #00ff00, #00ffff, #0000ff, #ff00ff) 1;
             border-radius: 10px;
@@ -166,12 +180,29 @@
             50% { transform: scale(1.05); }
             100% { transform: scale(1); }
         }
+
+        /* Media query per schermi più piccoli */
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+            .container {
+                width: 95%; /* Schermo intero su telefoni */
+            }
+            h1 {
+                 font-size: 1.8em; /* Ancora più piccolo su schermi piccoli */
+            }
+            .super-circle {
+              width: 200px;
+              height: 200px;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="super-circle" style="top: 20%; left: 10%;"></div>
     <div class="super-circle" style="top: 80%; left: 90%; animation-delay: -10s;"></div>
-    <div class="super-circle" style="top: 50%; left: 70%; animation-delay: -5s; width: 400px; height: 400px;"></div>
+    <div class="super-circle" style="top: 50%; left: 70%; animation-delay: -5s; width: 200px; height: 200px;"></div>
 
     <div class="container">
         <div class="title-container">
@@ -197,7 +228,7 @@
             <button onclick="adjustLabor(10)">+10</button>
             <button onclick="adjustLabor(100)">+100</button>
             <button onclick="adjustLabor(5000)">+5000</button>
-            <button onclick="resetLabor()" style="grid-column: span 3; background: linear-gradient(45deg, #ff0000, #990000);">
+            <button onclick="resetLabor()" style="grid-column: 1 / -1; background: linear-gradient(45deg, #ff0000, #990000);">
                 RESET
             </button>
         </div>
